@@ -1,50 +1,57 @@
 {% set name = "pbr" %}
-{% set version = "5.6.0" %}
-{% set bundle = "tar.gz" %}
-{% set hash = "42df03e7797b796625b1029c0400279c7c34fd7df24a7d7818a1abb5b38710dd" %}
+{% set version = "6.1.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.{{ bundle }}
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ bundle }}
-  sha256: {{ hash }}
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 93ea72ce6989eb2eed99d0f75721474f69ad88128afdef5ac377eb797c4bf76b
 
 build:
-  noarch: python
   number: 0
   preserve_egg_dir: true
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
     - pbr = pbr.cmd.main:main
 
 requirements:
   host:
-    - python >=3.6
+    - python
     - pip
-
+    - wheel
+    - setuptools >=64.0.0
   run:
-    - python >=3.6
+    - python
     - pip
+    - setuptools
 
 test:
   imports:
     - pbr
-    - pbr.cmd
     - pbr.hooks
-
+    - pbr.pbr_json
+    - pbr.version
+  requires:
+    - pip
   commands:
+    - pip check
     - pbr --help
+    # Upstream tests require unavailable 'fixtures'
 
 about:
   home: https://launchpad.net/pbr
   license_file: LICENSE
   license: Apache-2.0
   license_family: Apache
-  summary: Python Build Reasonableness
-  doc_url: https://docs.openstack.org/developer/pbr/
+  summary: PBR is a library that injects some useful and sensible default behaviors into your setuptools run.
+  description: |
+    PBR is a library that injects some useful and sensible default behaviors into your setuptools run.
+    It started off life as the chunks of code that were copied between all of the OpenStack projects.
+    Around the time that OpenStack hit 18 different projects each with at least 3 active branches,
+    it seemed like a good time to make that code into a proper reusable library.
+  doc_url: https://docs.openstack.org/developer/pbr
   dev_url: https://git.openstack.org/cgit/openstack-dev/pbr
 
 extra:
