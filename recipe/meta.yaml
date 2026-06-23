@@ -1,5 +1,5 @@
 {% set name = "pbr" %}
-{% set version = "6.1.1" %}
+{% set version = "7.0.3" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 93ea72ce6989eb2eed99d0f75721474f69ad88128afdef5ac377eb797c4bf76b
+  sha256: b46004ec30a5324672683ec848aed9e8fc500b0d261d40a3229c2d2bbfcedc29
 
 build:
   number: 0
