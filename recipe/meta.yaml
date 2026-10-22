@@ -1,13 +1,13 @@
 {% set name = "pbr" %}
-{% set version = "7.0.3" %}
+{% set version = "7.1.3" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: b46004ec30a5324672683ec848aed9e8fc500b0d261d40a3229c2d2bbfcedc29
+  sha256: 9a4a85b84e906337708009af0b5f5cdabeeb72d4dc213c9e97974da54fd9acc5
 
 build:
   number: 0
@@ -24,6 +24,7 @@ requirements:
     - setuptools >=64.0.0
   run:
     - python
+    # Upstream source - https://opendev.org/openstack/pbr/src/tag/7.1.3/requirements.txt  
     - setuptools
 
 # All tests require fixture package which is not available on main channel.
@@ -51,7 +52,7 @@ about:
     Around the time that OpenStack hit 18 different projects each with at least 3 active branches,
     it seemed like a good time to make that code into a proper reusable library.
   doc_url: https://docs.openstack.org/developer/pbr
-  dev_url: https://git.openstack.org/cgit/openstack-dev/pbr
+  dev_url: https://opendev.org/openstack/pbr
 
 extra:
   recipe-maintainers:
@@ -59,5 +60,4 @@ extra:
     - pmlandwehr
     - tschoonj
   skip-lints:
-    # https://opendev.org/openstack/pbr/src/tag/6.1.1/pbr/util.py#L76
-    - python_build_tool_in_run
+    - python_build_tools_in_host
